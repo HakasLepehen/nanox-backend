@@ -11,7 +11,7 @@ import { ProgrammerService } from './programmer.service';
 import { CreateProgrammerDto } from './dto/create-programmer.dto';
 import { UpdateProgrammerDto } from './dto/update-programmer.dto';
 
-@Controller('programmer')
+@Controller()
 export class ProgrammerController {
   constructor(private readonly programmerService: ProgrammerService) {}
 
@@ -21,7 +21,7 @@ export class ProgrammerController {
   }
 
   @Get()
-  findAll() {
+  findAll(): string {
     return this.programmerService.findAll();
   }
 
