@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
 import { Programmer } from './programmer/entities/programmer.entity';
 import { ProgrammerModule } from './programmer/programmer.module';
 
@@ -18,4 +19,6 @@ import { ProgrammerModule } from './programmer/programmer.module';
     }),
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private connection: Connection) {}
+}
