@@ -15,7 +15,7 @@ import { ProgrammerModule } from './programmer/programmer.module';
       password: 'sonar55k',
       database: 'postgres',
       entities: [Programmer],
-      synchronize: true,
+      synchronize: process.env.NODE_ENV === 'development' ? true : false,
     }),
   ],
 })

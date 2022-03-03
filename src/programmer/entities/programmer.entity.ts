@@ -18,8 +18,11 @@ export class Programmer {
   @Column()
   middleName: string;
 
-  @Column()
-  position: Position;
+  @Column({
+    type: 'enum',
+    enum: Position,
+  })
+  position: string;
 
   @Column()
   dateOfBirth: Date;

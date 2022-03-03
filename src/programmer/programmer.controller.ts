@@ -11,17 +11,17 @@ import { ProgrammerService } from './programmer.service';
 import { CreateProgrammerDto } from './dto/create-programmer.dto';
 import { UpdateProgrammerDto } from './dto/update-programmer.dto';
 
-@Controller()
+@Controller('api/programmers')
 export class ProgrammerController {
   constructor(private readonly programmerService: ProgrammerService) {}
 
-  @Post()
-  create(@Body() createProgrammerDto: CreateProgrammerDto) {
-    return this.programmerService.create(createProgrammerDto);
-  }
+  // @Post()
+  // create(@Body() createProgrammerDto: CreateProgrammerDto) {
+  //   return this.programmerService.create(createProgrammerDto);
+  // }
 
   @Get()
-  findAll(): string {
+  findAll(): any {
     return this.programmerService.findAll();
   }
 
@@ -30,13 +30,13 @@ export class ProgrammerController {
     return this.programmerService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateProgrammerDto: UpdateProgrammerDto,
-  ) {
-    return this.programmerService.update(+id, updateProgrammerDto);
-  }
+  // @Patch(':id')
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updateProgrammerDto: UpdateProgrammerDto,
+  // ) {
+  //   return this.programmerService.update(+id, updateProgrammerDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

@@ -1,26 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateProgrammerDto } from './dto/create-programmer.dto';
 import { UpdateProgrammerDto } from './dto/update-programmer.dto';
+import { Programmer } from './entities/programmer.entity';
 
 @Injectable()
 export class ProgrammerService {
-  create(createProgrammerDto: CreateProgrammerDto) {
-    return 'This action adds a new programmer';
-  }
+  constructor(
+    @InjectRepository(Programmer)
+    private programmerRepository: Repository<Programmer>,
+  ) {}
 
-  findAll() {
-    return `This action returns all programmer`;
+  // create(
+  //   @Body() createProgrammerDto: CreateProgrammerDto,
+  // ): Promise<CreateProgrammerDto> {
+  //   return this.programmerRepository.create(createProgrammerDto);
+  // }
+
+  findAll(): Promise<Programmer[]> {
+    return this.programmerRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} programmer`;
+    return this.programmerRepository.findOne(id);
   }
 
-  update(id: number, updateProgrammerDto: UpdateProgrammerDto) {
-    return `This action updates a #${id} programmer`;
-  }
+  // update(id: number, updateProgrammerDto: UpdateProgrammerDto) {
+  //   return `This action updates a #${id} programmer`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} programmer`;
+  async remove(id: number): Promise<void> {
+    await this.programmerRepository.delete(id);
   }
 }
