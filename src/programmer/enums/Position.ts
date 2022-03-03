@@ -1,5 +1,5 @@
 export enum Position {
-  Junior,
-  Middle,
-  Senior,
+  JUNIOR = 'Junior',
+  MIDDLE = 'Middle',
+  SENIOOR = 'Senior',
 }

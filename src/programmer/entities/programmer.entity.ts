@@ -22,10 +22,10 @@ export class Programmer {
     type: 'enum',
     enum: Position,
   })
-  position: string;
+  position: Position;
 
   @Column()
-  dateOfBirth: Date;
+  dateOfBirth: string;
 
   @Column()
   active: boolean;

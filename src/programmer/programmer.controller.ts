@@ -15,13 +15,13 @@ import { UpdateProgrammerDto } from './dto/update-programmer.dto';
 export class ProgrammerController {
   constructor(private readonly programmerService: ProgrammerService) {}
 
-  // @Post()
-  // create(@Body() createProgrammerDto: CreateProgrammerDto) {
-  //   return this.programmerService.create(createProgrammerDto);
-  // }
+  @Post()
+  create(@Body() createProgrammerDto: CreateProgrammerDto) {
+    return this.programmerService.create(createProgrammerDto);
+  }
 
   @Get()
-  findAll(): any {
+  findAll() {
     return this.programmerService.findAll();
   }
 
@@ -30,13 +30,10 @@ export class ProgrammerController {
     return this.programmerService.findOne(+id);
   }
 
-  // @Patch(':id')
-  // update(
-  //   @Param('id') id: string,
-  //   @Body() updateProgrammerDto: UpdateProgrammerDto,
-  // ) {
-  //   return this.programmerService.update(+id, updateProgrammerDto);
-  // }
+  @Patch()
+  update(@Body() updateProgrammerDto: UpdateProgrammerDto) {
+    return this.programmerService.update(updateProgrammerDto);
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

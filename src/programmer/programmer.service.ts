@@ -1,4 +1,4 @@
-import { Body, Injectable } from '@nestjs/common';
+import { BadRequestException, Body, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProgrammerDto } from './dto/create-programmer.dto';
@@ -12,11 +12,21 @@ export class ProgrammerService {
     private programmerRepository: Repository<Programmer>,
   ) {}
 
-  // create(
-  //   @Body() createProgrammerDto: CreateProgrammerDto,
-  // ): Promise<CreateProgrammerDto> {
-  //   return this.programmerRepository.create(createProgrammerDto);
-  // }
+  async create(
+    @Body() createProgrammerDto: CreateProgrammerDto,
+  ): Promise<CreateProgrammerDto> {
+    try {
+      const newProgrammer = await this.programmerRepository.create(
+        createProgrammerDto,
+      );
+
+      await this.programmerRepository.save(newProgrammer);
+
+      return newProgrammer;
+    } catch (e) {
+      throw new BadRequestException('asdasd', 'asdasda');
+    }
+  }
 
   findAll(): Promise<Programmer[]> {
     return this.programmerRepository.find();
@@ -26,9 +36,20 @@ export class ProgrammerService {
     return this.programmerRepository.findOne(id);
   }
 
-  // update(id: number, updateProgrammerDto: UpdateProgrammerDto) {
-  //   return `This action updates a #${id} programmer`;
-  // }
+  async update(updateProgrammerDto: UpdateProgrammerDto) {
+    await this.programmerRepository.update(
+      updateProgrammerDto.id,
+      updateProgrammerDto,
+    );
+
+    const updatedProgrammer = await this.programmerRepository.findOne(
+      updateProgrammerDto.id,
+    );
+
+    if (updatedProgrammer) {
+      return updatedProgrammer;
+    }
+  }
 
   async remove(id: number): Promise<void> {
     await this.programmerRepository.delete(id);
